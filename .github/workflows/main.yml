@@ -3,7 +3,7 @@ on: [push]
 jobs:
   test:
     runs-on: ubuntu-latest
-    name: A job to say hello
+    name: Revs the version with the commit sha
     steps:
       # To use this repository's private action,
       # you must check out the repository
