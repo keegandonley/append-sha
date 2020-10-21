@@ -1,5 +1,8 @@
 name: 'NPM Append Sha'
 description: 'Appends the sha to the end of the version for an npm package'
+branding:
+  icon: git-commit
+  color: red
 outputs:
   version: # id of output
     description: 'The new version'
