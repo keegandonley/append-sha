@@ -1,4 +1,4 @@
-name: 'Version Sha'
+name: 'NPM Append Sha'
 description: 'Appends the sha to the end of the version for an npm package'
 outputs:
   version: # id of output
