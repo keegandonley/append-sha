@@ -4,8 +4,8 @@ const fs = require('fs');
 
 try {
 	const sha = github.context.sha;
-	const packageFile = fs.readFileSync('./package.json', 'utf-8');
-	const packageLockFile = fs.readFileSync('./package-lock.json', 'utf-8');
+	const packageFile = fs.readFileSync('./github/workspace/package.json', 'utf-8');
+	const packageLockFile = fs.readFileSync('./github/workspace/package-lock.json', 'utf-8');
 
 	const package = JSON.parse(packageFile);
 	const packageLock = JSON.parse(packageLockFile);
@@ -15,8 +15,8 @@ try {
 	package.version = newVersion;
 	packageLock.version = newVersion;
 
-	fs.writeFileSync('./package.json', JSON.stringify(package, null, 2));
-	fs.writeFileSync('./package-lock.json', JSON.stringify(packageLock, null, 2));
+	fs.writeFileSync('./github/workspace/package.json', JSON.stringify(package, null, 2));
+	fs.writeFileSync('./github/workspace/package-lock.json', JSON.stringify(packageLock, null, 2));
 
 	core.setOutput('version', newVersion);
 	
