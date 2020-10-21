@@ -3,7 +3,10 @@ const github = require('@actions/github');
 const fs = require('fs');
 
 try {
-	const sha = github.context.sha;
+	let sha = github.context.sha;
+	if (sha) {
+		sha = sha.slice(0, 8);
+	}
 	const packageFile = fs.readFileSync('./package.json', 'utf-8');
 	const packageLockFile = fs.readFileSync('./package-lock.json', 'utf-8');
 
