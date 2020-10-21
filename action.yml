@@ -1,0 +1,8 @@
+name: 'Version Sha'
+description: 'Appends the sha to the end of the version for an npm package'
+outputs:
+  version: # id of output
+    description: 'The new version'
+runs:
+  using: 'node12'
+  main: 'index.js'
