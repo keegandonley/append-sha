@@ -3,7 +3,7 @@ const github = require('@actions/github');
 const fs = require('fs');
 const exec = require('@actions/exec');
 
-try {
+const run = async () => {
 	const sha = github.context.sha;
 
 	let myOutput = '';
@@ -39,7 +39,10 @@ try {
 	fs.writeFileSync('./github/workspace/package-lock.json', JSON.stringify(packageLock, null, 2));
 
 	core.setOutput('version', newVersion);
-	
+}
+
+try {
+	run();
 } catch (e) {
 	core.setFailed(e.message);
 }
