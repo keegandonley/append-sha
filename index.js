@@ -4,12 +4,21 @@ const fs = require('fs');
 
 try {
 	const sha = github.context.sha;
-	const package = fs.readFileSync('./package.json');
-	const packageLock = fs.readFileSync('./package-lock.json');
+	const packageFile = fs.readFileSync('./package.json', 'utf-8');
+	const packageLockFile = fs.readFileSync('./package-lock.json', 'utf-8');
 
-	if (!sha) {
-		throw new Error('No commit sha found');
-	}
+	const package = JSON.parse(packageFile);
+	const packageLock = JSON.parse(packageLockFile);
+
+	const newVersion = `${package.version}${sha ? `-${sha}` : ''}`;
+
+	package.version = newVersion;
+	packageLock.version = newVersion;
+
+	fs.writeFileSync('./package.json', JSON.stringify(package, null, 2));
+	fs.writeFileSync('./package-lock.json', JSON.stringify(packageLock, null, 2));
+
+	core.setOutput('version', newVersion);
 	
 } catch (e) {
 	core.setFailed(e.message);
