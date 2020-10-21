@@ -1,0 +1,17 @@
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: A job to say hello
+    steps:
+      # To use this repository's private action,
+      # you must check out the repository
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Version bump
+        uses: ./ # Uses an action in the root directory
+        id: version
+      # Use the output from the `hello` step
+      - name: Get the new version
+        run: echo "The new version was ${{ steps.version.outputs.version }}"
