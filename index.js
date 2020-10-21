@@ -1,9 +1,29 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 const fs = require('fs');
+const exec = require('@actions/exec');
 
 try {
 	const sha = github.context.sha;
+
+	let myOutput = '';
+	let myError = '';
+
+	const options = {};
+	options.listeners = {
+		stdout: (data) => {
+			myOutput += data.toString();
+		},
+		stderr: (data) => {
+			myError += data.toString();
+		}
+	};
+	options.cwd = './lib';
+
+	await exec.exec('ls', options);
+	console.log(myOutput);
+	console.log(myError);
+
 	const packageFile = fs.readFileSync('./github/workspace/package.json', 'utf-8');
 	const packageLockFile = fs.readFileSync('./github/workspace/package-lock.json', 'utf-8');
 
